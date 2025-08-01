@@ -352,6 +352,31 @@ export const plugins: Plugin[] = [
     ]
   },
   {
+    id: 'ratziel',
+    name: 'Ratziel',
+    description: '多功能的现代物品库',
+    category: 'item',
+    letter: 'R',
+    detail: '多功能、现代的脚本驱动的插件',
+    links: [
+      {
+        type: 'github',
+        url: 'https://github.com/TheFloodDragon/Ratziel-Beta',
+        label: 'GitHub'
+      },
+      {
+        type: 'minebbs',
+        url: 'https://www.minebbs.com/resources/ratziel.12580/',
+        label: 'MineBBS'
+      },
+      {
+        type: 'docs',
+        url: 'https://theflooddragon.github.io/Ratziel-Docs/',
+        label: '文档'
+      },
+    ]
+  },
+  {
     id: 'trchat',
     name: 'TrChat',
     description: '聊天插件',
