@@ -20,12 +20,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # 构建和部署到GitHub Pages
-  build-and-deploy:
+  # 构建作业
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
     # 拉取代码
     - name: Checkout
@@ -80,8 +77,20 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: ./build
-        
-    # 部署到GitHub Pages
+
+  # 部署作业 - 只在main分支push时运行
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # 只在main分支且为push事件时部署
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
