@@ -1,4 +1,4 @@
-name: Workflow Build
+name: Build and Deploy TabooLib Guide
 on:
   push:
     branches:
@@ -6,34 +6,89 @@ on:
   pull_request:
     branches:
       - main
+  # 允许手动触发
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 只允许一个并发部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  # 自动部署GitPage
-  gitpage:
+  # 构建作业
+  build:
     runs-on: ubuntu-latest
     steps:
     # 拉取代码
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
-        persist-credentials: false
-        fetch-depth: 0
+        fetch-depth: 0 # 获取完整历史记录用于版本信息
 
-    # 设置Bun环境
     # 设置Node.js环境
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '19'
-        cache: 'npm'
+        node-version: '22'
+        
+    # 设置pnpm (使用package.json中指定的版本)
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+        
+    # 获取pnpm缓存目录
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+        
+    # 设置pnpm缓存
+    - name: Setup pnpm cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
     # 安装依赖
     - name: Install Dependencies
-      run: npm install
+      run: pnpm install --frozen-lockfile
       
     # 编译出静态页面
     - name: Build
-      run: npm run build
+      run: pnpm build
       env:
         NODE_OPTIONS: --max-old-space-size=8192
-        BASE_URL: /TabooLib-guide/
         NODE_ENV: production
+        
+    # 设置GitHub Pages
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+      
+    # 上传构建产物
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./build
+
+  # 部署作业 - 只在main分支push时运行
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # 只在main分支且为push事件时部署
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
