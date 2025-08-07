@@ -36,11 +36,9 @@ jobs:
       with:
         node-version: '18'
         
-    # 设置pnpm
+    # 设置pnpm (使用package.json中指定的版本)
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
-      with:
-        version: 8
         
     # 获取pnpm缓存目录
     - name: Get pnpm store directory
