@@ -1,5 +1,5 @@
 import React from 'react';
-import {useThemeConfig, ErrorCauseBoundary} from '@docusaurus/theme-common';
+import { useThemeConfig, ErrorCauseBoundary } from '@docusaurus/theme-common';
 import {
     splitNavbarItems,
     useNavbarMobileSidebar,
@@ -18,24 +18,22 @@ function useNavbarItems() {
     return useThemeConfig().navbar.items;
 }
 
-function NavbarItems({items}) {
+function NavbarItems({ items }) {
     return (
         <ul className="links">
             {items.map((item) => {
                 // 检查是否为外部链接（以http开头）
                 const isExternalLink = item.href && (item.href.startsWith('http://') || item.href.startsWith('https://'));
-                
+
                 return (
-                    <li key={item.label} aria-current={item.label === '开发文档' ? 'page' : undefined}>
-                        <button className="none-button">
-                            {isExternalLink ? (
-                                // 外部链接使用原生a标签
-                                <a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
-                            ) : (
-                                // 内部链接使用Link组件
-                                <Link to={item.href}>{item.label}</Link>
-                            )}
-                        </button>
+                    <li key={item.label}>
+                        {isExternalLink ? (
+                            // 外部链接使用原生 a 标签
+                            <a className="navbar__link" href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
+                        ) : (
+                            // 内部链接使用 Link 组件，增加标准类名以统一激活/悬停样式
+                            <Link className="navbar__link" to={item.href}>{item.label}</Link>
+                        )}
                     </li>
                 );
             })}
@@ -43,7 +41,7 @@ function NavbarItems({items}) {
     );
 }
 
-function NavbarContentLayout({left, right}) {
+function NavbarContentLayout({ left, right }) {
     return (
         <div className="navbar__inner">
             {left}
@@ -61,23 +59,23 @@ export default function NavbarContent() {
         <NavbarContentLayout
             left={
                 <>
-                    <NavbarLogo/>
-                    <NavbarItems items={leftItems}/>
+                    <NavbarLogo />
+                    <NavbarItems items={leftItems} />
                 </>
             }
             right={
                 <>
                     {!searchBarItem && (
                         <NavbarSearch>
-                            <SearchBar/>
+                            <SearchBar />
                         </NavbarSearch>
                     )}
                     <div className="actions">
-                        <NavbarColorModeToggle className={styles.colorModeToggle}/>
+                        <NavbarColorModeToggle className={styles.colorModeToggle} />
                         <a href="https://github.com/8aka-team/TabooLib-guide/" className="navbar__action__item flex" target="_blank" rel="noopener noreferrer">
-                            <Github/>
+                            <Github />
                         </a>
-                        {!mobileSidebar.disabled && <NavbarMobileSidebarToggle/>}
+                        {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
                     </div>
                 </>
             }

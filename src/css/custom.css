@@ -75,7 +75,8 @@ body {
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme="dark"] {
   --border: hsl(217.2 32.6% 17.5%);
-  --background: hsl(222.2 84% 4.9%);
+  /* 修复：仅存储 HSL 数值，供 hsl(var(--background) / X) 使用 */
+  --background: 222.2 84% 4.9%;
   --muted: hsl(217.2 32.6% 17.5%);
   --ifm-color-primary: hsl(217.2 91.2% 59.8%);
   --ifm-color-primary-dark: hsl(217.2 91.2% 49.8%);
@@ -424,4 +425,148 @@ h1 {
 .clean-btn.menu__caret {
   background-color: transparent !important;
   background: none !important;
+}
+
+/* ===== 导航栏样式优化（增强悬停/激活态、可读性与可点击区域）===== */
+/* 兼容 Safari 的毛玻璃效果 */
+.navbar {
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* 提升链接可点击区域与对齐 */
+.navbar .links li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  line-height: 1.2;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  position: relative;
+}
+
+/* 悬停：弱背景，不改变文字颜色，减少抖动 */
+.navbar .links li a:hover {
+  background-color: var(--muted);
+  text-decoration: none;
+}
+
+/* 激活态：高亮颜色 + 底部指示条 */
+/* Docusaurus 会在当前链接上加 .navbar__link--active */
+.navbar .links .navbar__link--active {
+  color: var(--ifm-color-primary);
+  background-color: color-mix(in oklab, var(--muted) 70%, transparent);
+}
+
+.navbar .links .navbar__link--active::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ifm-color-primary);
+}
+
+/* 焦点可见：无障碍高亮 */
+.navbar .links li a:focus-visible,
+.navbar__action__item:focus-visible,
+.navbar__search-input:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* 动作按钮（如主题切换）的悬停反馈更明确 */
+.navbar__action__item {
+  border: 1px solid transparent;
+}
+
+.navbar__action__item:hover {
+  background-color: var(--muted);
+  border-color: var(--border);
+}
+
+/* 右侧区域间距稍加大，避免拥挤 */
+@media (min-width: 1024px) {
+  .navbar__items--right {
+    gap: 0.5rem;
+  }
+}
+
+/* 搜索框在暗色模式下的可读性 */
+[data-theme="dark"] .navbar__search-input {
+  background-color: color-mix(in oklab, #000 85%, transparent);
+  border-color: var(--border);
+}
+
+/* 移动端侧边栏的分隔与触摸目标优化 */
+.navbar-sidebar__brand {
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-sidebar .menu__link {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  border-radius: 6px;
+}
+
+.navbar-sidebar .menu__link--active {
+  background-color: var(--muted);
+  color: var(--ifm-color-primary);
+}
+
+
+.navbar .links .navbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  line-height: 1.2;
+}
+
+.navbar .links .navbar__link:hover {
+  background-color: var(--muted);
+  text-decoration: none;
+}
+
+.navbar .links .navbar__link--active,
+.navbar .links .navbar__link[aria-current="page"] {
+  color: var(--ifm-color-primary);
+  background-color: color-mix(in oklab, var(--muted) 70%, transparent);
+}
+
+.navbar .links .navbar__link--active::after,
+.navbar .links .navbar__link[aria-current="page"]::after {
+  content: "";
+  position: relative;
+  display: block;
+  height: 2px;
+  margin-top: 6px;
+  border-radius: 2px;
+  background: var(--ifm-color-primary);
+}
+
+.navbar .links .navbar__link:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+
+[data-theme="dark"] .navbar {
+  background-color: hsl(var(--background) / 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .navbar .links .navbar__link:hover {
+
+  background-color: color-mix(in oklab, var(--muted) 85%, transparent);
+}
+
+[data-theme="dark"] .navbar .links .navbar__link--active,
+[data-theme="dark"] .navbar .links .navbar__link[aria-current="page"] {
+  background-color: color-mix(in oklab, var(--muted) 80%, transparent);
+  color: var(--ifm-color-primary);
 }
