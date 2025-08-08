@@ -15,6 +15,31 @@
   display: none !important;
 }
 
+/* 首页模式下的body样式 */
+:global(body.homepage-mode) {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+:global(body.homepage-mode) nav.navbar,
+:global(body.homepage-mode) footer.footer,
+:global(body.homepage-mode) .navbar-sidebar,
+:global(body.homepage-mode) .theme-doc-sidebar-container,
+:global(body.homepage-mode) .theme-doc-footer {
+  display: none !important;
+}
+
+:global(body.homepage-mode) #__docusaurus {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+:global(body.homepage-mode) .main-wrapper {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .homepage main {
   margin: 0 !important;
   padding: 0 !important;
