@@ -5,17 +5,19 @@
  */
 html,
 body {
-	scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 @font-face {
   font-family: Fusion-Pixel-12-proportional-zh_cn;
-  src: url("/static/fonts/fusion-pixel-12px-monospaced-zh_hans.woff2");
+  src: url("/fonts/fusion-pixel-12px-monospaced-zh_hans.woff2");
+  font-display: swap;
 }
 
 @font-face {
   font-family: AlibabaPuHuiTi-3-55-Regular;
-  src: url("/static/fonts/AlibabaPuHuiTi-3-55-Regular.woff2");
+  src: url("/fonts/AlibabaPuHuiTi-3-55-Regular.woff2");
+  font-display: swap;
 }
 
 h1,
@@ -31,7 +33,12 @@ h6 {
   font-family: AlibabaPuHuiTi-3-55-Regular, sans-serif;
 }
 
-.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
   font-family: AlibabaPuHuiTi-3-55-Regular, sans-serif;
 }
 
@@ -55,7 +62,7 @@ body {
   --ifm-code-font-size: 95%;
   --ifm-font-size-base: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  
+
   /* 滚动条变量 */
   --scrollbar-width: 8px;
   --scrollbar-track-bg: rgba(0, 0, 0, 0.03);
@@ -80,7 +87,7 @@ body {
   --ifm-code-font-size: 95%;
   --ifm-font-size-base: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  
+
   /* 暗色模式滚动条变量 */
   --scrollbar-track-bg: rgba(255, 255, 255, 0.03);
   --scrollbar-thumb-bg: rgba(255, 255, 255, 0.15);

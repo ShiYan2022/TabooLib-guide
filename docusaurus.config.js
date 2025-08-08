@@ -1,7 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const {themes} = require('prism-react-renderer');
+const { themes } = require('prism-react-renderer');
 
 const IS_CHINA_SITE = process.env.CHINA === 'true';
 const ICP_LICENSE = process.env.ICP_LICENSE;
@@ -58,24 +58,24 @@ const config = {
                         to: '/kether/',
                     },
                     {
-                        from: '/summer/nereusopus', 
+                        from: '/summer/nereusopus',
                         to: '/404.html', // 重定向到404页面，因为目标不存在
                     },
                 ],
                 // 设置通用重定向规则，将/plugin/插件名/路径重定向到/插件名/路径
                 createRedirects(existingPath) {
                     // 处理所有插件路径的重定向
-                    if (existingPath.includes('/adyeshach/') || 
+                    if (existingPath.includes('/adyeshach/') ||
                         existingPath.includes('/aiyatsbus/') ||
                         existingPath.includes('/chemdah/') ||
                         existingPath.includes('/TrMenu/') ||
                         existingPath.includes('/TrChat/') ||
                         existingPath.includes('/chesed/')) {
-                        
+
                         // 构建 /plugin 前缀的路径，作为源路径
                         return [`/plugin${existingPath}`];
                     }
-                    
+
                     return undefined;
                 },
             },
@@ -113,7 +113,7 @@ const config = {
     ],
 
     themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+        /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
             zoom: {
                 selector: '.markdown :not(em) > img',
