@@ -1,43 +1,342 @@
+/* ===== 基础容器样式 ===== */
 .tabContainer {
   margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: visible;
+  position: relative;
+  isolation: isolate;
 }
 
+/* ===== 标签列表样式 ===== */
 .tabList {
   display: flex;
-  border-bottom: 1px solid var(--ifm-color-emphasis-300);
-  margin-bottom: 16px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  margin-bottom: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge */
+  scroll-behavior: smooth;
 }
 
+.tabList::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+}
+
+.tabList.overflowing {
+  display: none;
+  /* 溢出时隐藏，显示下拉菜单 */
+}
+
+/* ===== 标签按钮样式 ===== */
 .tabButton {
-  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
   cursor: pointer;
   border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ifm-color-content-secondary);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: fit-content;
+  position: relative;
 }
 
-.tabButton:hover {
-  border-bottom: 2px solid var(--ifm-color-primary-lightest);
+.tabButton:hover:not(.disabled) {
+  color: var(--ifm-color-primary);
+  background-color: var(--ifm-color-primary-contrast-background);
+  border-bottom-color: var(--ifm-color-primary-light);
 }
 
 .tabButton.active {
-  border-bottom: 2px solid var(--ifm-color-primary);
   color: var(--ifm-color-primary);
-  font-weight: bold;
+  border-bottom-color: var(--ifm-color-primary);
+  font-weight: 600;
+  background-color: var(--ifm-color-primary-contrast-background);
 }
 
+.tabButton.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.tabButton:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* ===== 标签图标和标题 ===== */
+.tabIcon {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.tabTitle {
+  line-height: 1.2;
+}
+
+/* ===== 尺寸变体 ===== */
+.tabButton.small {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.tabButton.large {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+}
+
+/* ===== 移动端下拉选择器 ===== */
+.mobileTabSelector {
+  position: relative;
+  margin-bottom: 1rem;
+  display: none;
+  /* 默认隐藏，在移动端或溢出时显示 */
+  z-index: 999;
+}
+
+.dropdownToggle {
+  width: 100%;
+  background-color: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--ifm-color-content);
+  transition: all 0.2s ease;
+}
+
+.dropdownToggle:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 1px var(--ifm-color-primary);
+}
+
+.currentTab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dropdownIcon {
+  transition: transform 0.2s ease;
+  color: var(--ifm-color-content-secondary);
+}
+
+.dropdownIcon.rotated {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  margin-top: 4px;
+  overflow: hidden;
+  animation: dropdownSlide 0.2s ease-out;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdownItem {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ifm-color-content);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.15s ease;
+}
+
+.dropdownItem:hover:not(.disabled) {
+  background-color: var(--ifm-color-primary-contrast-background);
+  color: var(--ifm-color-primary);
+}
+
+.dropdownItem.active {
+  background-color: var(--ifm-color-primary-contrast-background);
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.dropdownItem.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== 内容区域样式 ===== */
 .tabContent {
-  padding: 0.5rem 0;
+  background-color: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 1.5rem;
+  min-height: 100px;
+  overflow: auto;
+  position: relative;
 }
 
 .tabPanel {
-  animation: fadeIn 0.2s ease-in-out;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* ===== 变体样式 ===== */
+.tabContainer.pills .tabList {
+  border-bottom: none;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tabContainer.pills .tabButton {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 20px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.tabContainer.pills .tabButton.active {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+}
+
+.tabContainer.pills .tabContent {
+  border: none;
+  border-radius: 8px;
+  background-color: var(--ifm-card-background-color);
+}
+
+/* ===== 暗色模式适配 ===== */
+[data-theme="dark"] .dropdownMenu {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .tabButton:hover:not(.disabled) {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme="dark"] .tabButton.active {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+/* ===== 动画效果 ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
-} 
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+  .tabContainer {
+    margin: 1rem 0;
+  }
+
+  .tabList {
+    display: none;
+    /* 移动端始终使用下拉菜单 */
+  }
+
+  .mobileTabSelector {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .tabContent {
+    padding: 1rem;
+    border-top: 1px solid var(--ifm-color-emphasis-200);
+    border-radius: 8px;
+    margin-top: 0;
+    /* 确保在小屏幕上有足够的可见区域 */
+    min-height: 120px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+
+  .tabPanel {
+    /* 移动端内容动画更轻量 */
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .tabButton.small {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .dropdownMenu {
+    /* 移动端确保下拉菜单不会超出屏幕 */
+    left: 0.5rem;
+    right: 0.5rem;
+    width: auto;
+    max-height: 150px;
+  }
+
+  /* Pills变体在移动端的特殊处理 */
+  .tabContainer.pills .tabContent {
+    border: 1px solid var(--ifm-color-emphasis-200);
+    border-radius: 8px;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobileTabSelector {
+    display: none;
+    /* 桌面端隐藏下拉菜单 */
+  }
+
+  .tabList.overflowing {
+    display: flex;
+    /* 桌面端即使溢出也显示滚动 */
+  }
+}

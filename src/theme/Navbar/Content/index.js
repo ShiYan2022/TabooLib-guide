@@ -21,12 +21,12 @@ function useNavbarItems() {
 function NavbarItems({ items }) {
     return (
         <ul className="links">
-            {items.map((item) => {
+            {items.map((item, index) => {
                 // 检查是否为外部链接（以http开头）
                 const isExternalLink = item.href && (item.href.startsWith('http://') || item.href.startsWith('https://'));
 
                 return (
-                    <li key={item.label}>
+                    <li key={item.label || index}>
                         {isExternalLink ? (
                             // 外部链接使用原生 a 标签
                             <a className="navbar__link" href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>

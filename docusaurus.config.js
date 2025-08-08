@@ -147,6 +147,11 @@ const config = {
                         position: 'left',
                     },
                     {
+                        href: '/contribution/',
+                        label: '参与贡献',
+                        position: 'left',
+                    },
+                    {
                         href: 'https://github.com/8aka-Team/TabooLib-guide',
                         label: 'GitHub',
                         position: 'right',
