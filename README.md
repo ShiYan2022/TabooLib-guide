@@ -47,7 +47,7 @@ npm start
 
 | QQ群 | Discord | 问题反馈 |
 |:----:|:-------:|:--------:|
-| [611076407](https://8aka.org/qq) | [加入频道](https://discord.gg/dAmsfCs3) | [GitHub Issues](https://github.com/8aka-team/TabooLib-guide/issues) |
+| [874877925](https://8aka.org/qq) | [加入频道](https://discord.gg/dAmsfCs3) | [GitHub Issues](https://github.com/8aka-team/TabooLib-guide/issues) |
 
 </div>
 
