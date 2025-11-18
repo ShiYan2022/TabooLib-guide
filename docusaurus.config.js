@@ -193,7 +193,7 @@ const config = {
                         items: [
                             {
                                 label: 'QQ 群',
-                                href: 'https://qm.qq.com/q/dENGavSflK',
+                                href: 'https://qm.qq.com/q/4aMfrFylEA',
                             },
                         ],
                     },

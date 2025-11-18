@@ -9,15 +9,76 @@
 .cache-loader
 .docscache
 
-# Misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Docusaurus specific
+/static/.search-index
+.rspack-cache/
 
+# Environment variables
+.env
+.env*.local
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Package manager files
 package.json.bak
 yarn.lock
+pnpm-lock.yaml.bak
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# IDE - other
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+.loadpath
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# AI Assistants
+.claude
+.cursor
+
+# Test coverage
+coverage/
+*.lcov
+.nyc_output
