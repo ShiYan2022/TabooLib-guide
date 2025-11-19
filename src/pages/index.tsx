@@ -3,7 +3,6 @@ import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 import { IoArrowForward, IoBookOutline, IoTerminalOutline, IoGridOutline } from 'react-icons/io5';
 import LanguageRedirect from '../components/LanguageRedirect';
-import CustomAnnouncement from '../components/CustomAnnouncement';
 
 function HomepageHeader() {
   return (
@@ -59,13 +58,6 @@ export default function Home(): JSX.Element {
   
   return (
     <div className={styles.homepage}>
-      <CustomAnnouncement 
-        content={
-          <>
-            📢 笨蛋文档QQ群由于不可抗力因素（群员恶意举报，恶意发言）目前被封禁，请移至备用群 <strong>874877925</strong>
-          </>
-        }
-      />
       <HomepageHeader />
       <LanguageRedirect />
     </div>

@@ -10,14 +10,14 @@
 
   <br/>
 
-  <a href="https://taboo.8aka.org"><img src="https://img.shields.io/badge/📚_浏览文档-2e8555?style=for-the-badge" alt="浏览文档" /></a>
-  <a href="https://taboo.8aka.org/contribution"><img src="https://img.shields.io/badge/🤝_参与贡献-6c6c6c?style=for-the-badge" alt="参与贡献" /></a>
+  <a href="https://taboolib.hhhhhy.kim"><img src="https://img.shields.io/badge/📚_浏览文档-2e8555?style=for-the-badge" alt="浏览文档" /></a>
+  <a href="https://taboolib.hhhhhy.kim/contribution"><img src="https://img.shields.io/badge/🤝_参与贡献-6c6c6c?style=for-the-badge" alt="参与贡献" /></a>
   <a href="https://8aka.org/qq"><img src="https://img.shields.io/badge/💬_加入社区-4a7dbe?style=for-the-badge" alt="加入社区" /></a>
 </div>
 
 ## 📚 文档网站
 
-访问我们：https://taboo.8aka.org
+访问我们：https://taboolib.hhhhhy.kim
 
 ## 🚀 本地开发
 
@@ -35,10 +35,10 @@ npm start
 
 ## 🌟 你需要看
 
-- **📊 Kether Explorer** - [访问](https://taboo.8aka.org/kether-list)
+- **📊 Kether Explorer** - [访问](https://taboolib.hhhhhy.kim/kether-list)
   - 自研 Kether 动作浏览器，提供全面的 Kether 动作示例和文档
 
-- **🧩 Plugin Catalog** - [访问](https://taboo.8aka.org/plugin-catalog)
+- **🧩 Plugin Catalog** - [访问](https://taboolib.hhhhhy.kim/plugin-catalog)
   - 社区插件收录中心，查找你需要的插件
 
 ## 🤝 社区交流
@@ -70,7 +70,7 @@ git push origin main
 
 然后在GitHub上创建Pull Request，等待审核和合并。
 
-详细贡献流程请查看 [贡献指南](https://taboo.8aka.org/contribution)
+详细贡献流程请查看 [贡献指南](https://taboolib.hhhhhy.kim/contribution)
 
 ## ⚖️ 声明
 

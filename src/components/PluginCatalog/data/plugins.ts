@@ -36,7 +36,7 @@ export const plugins: Plugin[] = [
       },
       {
         type: 'docs',
-        url: 'https://taboo.8aka.org/category/aiyatsbus',
+        url: 'https://taboolib.hhhhhy.kim/category/aiyatsbus',
         label: '笨蛋文档镜像'
       }
     ]
@@ -56,7 +56,7 @@ export const plugins: Plugin[] = [
       },
       {
         type: 'docs',
-        url: 'https://taboo.8aka.cn/chesed',
+        url: 'https://taboolib.hhhhhy.kim/chesed',
         label: '笨蛋文档镜像'
       }
     ]
@@ -81,7 +81,7 @@ export const plugins: Plugin[] = [
       },
       {
         type: 'docs',
-        url: 'https://taboo.8aka.org/adyeshach',
+        url: 'https://taboolib.hhhhhy.kim/adyeshach',
         label: '笨蛋文档镜像'
       }
     ]
@@ -196,7 +196,7 @@ export const plugins: Plugin[] = [
       },
       {
         type: 'docs',
-        url: 'https://taboo.8aka.org/chemdah',
+        url: 'https://taboolib.hhhhhy.kim/chemdah',
         label: '笨蛋文档镜像'
       }
     ]
@@ -401,7 +401,7 @@ export const plugins: Plugin[] = [
       },
       {
         type: 'docs',
-        url: 'https://taboo.8aka.org/TrChat',
+        url: 'https://taboolib.hhhhhy.kim/TrChat',
         label: '笨蛋文档镜像'
       }
     ]

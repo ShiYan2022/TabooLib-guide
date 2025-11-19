@@ -18,7 +18,7 @@ const config = {
         },
     },
     title: 'TabooLib',
-    url: IS_CHINA_SITE ? 'https://taboo.8aka.cn' : 'https://taboo.8aka.org',
+    url: 'https://taboolib.hhhhhy.kim',
 
     baseUrl: process.env.BASE_URL ?? '/',
     onBrokenLinks: 'ignore',
@@ -121,13 +121,6 @@ const config = {
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
-            announcementBar: {
-                id: 'qq_group_migration',
-                content: '📢 笨蛋文档QQ群由于不可抗力因素（群员恶意举报，恶意发言）目前被封禁，请移至备用群 <strong style="color: #ffffff; background: hsl(221.2 83.2% 43.3%); padding: 2px 6px; border-radius: 4px;">874877925</strong>',
-                backgroundColor: 'hsl(221.2 83.2% 53.3%)', // 使用网站主色调
-                textColor: '#ffffff', // 白色文字
-                isCloseable: false, // 无法关闭，没有叉号
-            },
             zoom: {
                 selector: '.markdown :not(em) > img',
                 background: {
