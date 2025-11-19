@@ -42,22 +42,42 @@ def get_remote_files(ssh_host: str, ssh_user: str, ssh_key: str, ssh_port: str, 
 
     print(f"📡 连接服务器获取文件列表: {ssh_user}@{ssh_host}:{remote_dir}")
 
-    # 构建 SSH 命令
+    # 先检查目录是否存在
+    check_cmd = [
+        "ssh",
+        "-i", ssh_key,
+        "-p", ssh_port,
+        "-o", "StrictHostKeyChecking=no",
+        f"{ssh_user}@{ssh_host}",
+        f"test -d {remote_dir} && echo 'EXISTS' || echo 'NOT_EXISTS'"
+    ]
+
+    try:
+        result = subprocess.run(check_cmd, capture_output=True, text=True, timeout=10)
+        if result.stdout.strip() == 'NOT_EXISTS':
+            print(f"⚠️  服务器目录不存在，将创建并上传所有文件")
+            return remote_files
+    except:
+        print(f"⚠️  无法检查服务器目录，将上传所有文件")
+        return remote_files
+
+    # 使用并行的 md5sum 命令，并增加超时
     ssh_cmd = [
         "ssh",
         "-i", ssh_key,
         "-p", ssh_port,
         "-o", "StrictHostKeyChecking=no",
         f"{ssh_user}@{ssh_host}",
-        f"cd {remote_dir} 2>/dev/null && find . -type f -exec md5sum {{}} \\; || echo 'EMPTY'"
+        f"cd {remote_dir} && find . -type f -print0 | xargs -0 -P 4 md5sum"
     ]
 
     try:
-        result = subprocess.run(ssh_cmd, capture_output=True, text=True, timeout=60)
+        print("⏳ 正在计算服务器文件哈希值（可能需要一些时间）...")
+        result = subprocess.run(ssh_cmd, capture_output=True, text=True, timeout=3000)
 
         if result.returncode == 0:
             output = result.stdout.strip()
-            if output and output != "EMPTY":
+            if output:
                 for line in output.split('\n'):
                     if line.strip():
                         parts = line.split(None, 1)
@@ -69,10 +89,10 @@ def get_remote_files(ssh_host: str, ssh_user: str, ssh_key: str, ssh_port: str, 
 
             print(f"✅ 服务器上有 {len(remote_files)} 个文件")
         else:
-            print(f"⚠️  服务器目录可能为空或不存在，将上传所有文件")
+            print(f"⚠️  获取文件列表失败，将上传所有文件")
 
     except subprocess.TimeoutExpired:
-        print("⚠️  获取服务器文件列表超时，将上传所有文件")
+        print("⚠️  获取服务器文件列表超时（超过5分钟），将上传所有文件")
     except Exception as e:
         print(f"⚠️  获取服务器文件列表失败: {e}，将上传所有文件")
 
@@ -123,7 +143,8 @@ def upload_files(files: Set[str], build_dir: str, ssh_host: str, ssh_user: str,
 
     try:
         print(f"🚀 执行上传命令...")
-        result = subprocess.run(rsync_cmd, timeout=600)
+        # 增加超时到 30 分钟
+        result = subprocess.run(rsync_cmd, timeout=1800)
 
         if result.returncode == 0:
             print(f"✅ 成功上传 {len(files)} 个文件")
@@ -133,7 +154,7 @@ def upload_files(files: Set[str], build_dir: str, ssh_host: str, ssh_user: str,
             return False
 
     except subprocess.TimeoutExpired:
-        print("❌ 上传超时")
+        print("❌ 上传超时（超过30分钟）")
         return False
     except Exception as e:
         print(f"❌ 上传过程出错: {e}")
