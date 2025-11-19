@@ -39,7 +39,7 @@ jobs:
     # 测试 SSH 连接
     - name: Test SSH Connection
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      uses: appleboy/ssh-action@v1.0.0
+      uses: appleboy/ssh-action@v1.1.0
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
@@ -73,7 +73,7 @@ jobs:
     # 验证部署结果
     - name: Verify deployment
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      uses: appleboy/ssh-action@v1.0.3
+      uses: appleboy/ssh-action@v1.1.0
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
