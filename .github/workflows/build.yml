@@ -45,7 +45,6 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        debug: true
         script: |
           echo "✅ SSH 连接成功！"
           echo "服务器主机名: $(hostname)"
@@ -54,19 +53,29 @@ jobs:
           echo "目标目录检查:"
           ls -la ${{ secrets.TARGET_DIR }} || echo "目标目录不存在，将在部署时创建"
 
-    # 上传构建文件到服务器
-    - name: Upload build files to server
+    # 配置 SSH 密钥
+    - name: Setup SSH Key
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        source: "build/*"
-        target: ${{ secrets.TARGET_DIR }}
-        strip_components: 1
-        rm: true
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > /tmp/deploy_key
+        chmod 600 /tmp/deploy_key
+        ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        echo "✅ SSH 密钥配置完成"
+
+    # 使用 Python 脚本增量部署
+    - name: Incremental Deploy with Python
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      env:
+        BUILD_DIR: ./build
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_KEY_PATH: /tmp/deploy_key
+        SSH_PORT: ${{ secrets.SSH_PORT }}
+        TARGET_DIR: ${{ secrets.TARGET_DIR }}
+      run: |
+        chmod +x .github/scripts/incremental_deploy.py
+        python3 .github/scripts/incremental_deploy.py
 
     # 验证部署结果
     - name: Verify deployment
