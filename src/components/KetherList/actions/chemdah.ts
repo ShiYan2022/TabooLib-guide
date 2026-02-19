@@ -545,7 +545,7 @@ const chemdah: KetherActionModule = {
       example: "\{wizard\} to \"example_0\"\\n\{wizard\} cancel"
     },
     {
-      id: "workfow_fetch",
+      id: "workflow_fetch",
       name: "Workflows Fetch",
       description: "定义离线补偿，当玩家在 \{fetch reset\} 语句执行前离开游戏时，\\n那么玩家下次进入游戏后将执行 \{fetch mark\} 中的语句。",
       provider: "Chemdah",
